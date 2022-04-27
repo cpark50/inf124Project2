@@ -1,0 +1,40 @@
+body {
+    background-color: rgb(233, 227, 227);
+}
+
+ul {
+    list-style-type: none;
+    margin:0;
+    padding: 0;
+    overflow: hidden;
+    background-color: rgb(233, 227, 227);
+    border: 1px solid white;
+    margin-bottom: 60px;
+}
+
+li {
+    float: left;
+    border-right:1px solid white;
+}
+
+li a {
+    display: block;
+    color: gray;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 300;
+    color: gray;
+    line-height: 24px;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.title{
+    padding: 15px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}

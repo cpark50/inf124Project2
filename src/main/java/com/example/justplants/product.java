@@ -15,18 +15,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-
-//when to close the db? 
-//add information to and query table
-@WebServlet(name = "trial", value = "/trial") //@WebServlet(name="JDBC Demo", urlPatterns="/link")
-public class trial extends HttpServlet {
+@WebServlet(name = "product", value = "/product")
+public class product extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
         super.init();
-        
     }
-    
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try{ //slow. connection. 
@@ -37,7 +33,6 @@ public class trial extends HttpServlet {
             ResultSet rs = stmt.executeQuery(sql);
 
             PrintWriter writer = resp.getWriter();
-            writer.println("<head> <link rel=\"stylesheet\" href=\"styles/mainpage.css\"></head>");
             writer.println("<html> <body>");
             while(rs.next()){
                 String name = rs.getString("p_name");
