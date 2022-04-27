@@ -18,8 +18,8 @@ import javax.servlet.http.HttpServletResponse;
 
 //when to close the db? 
 //add information to and query table
-@WebServlet(name = "trial", value = "/trial") //@WebServlet(name="JDBC Demo", urlPatterns="/link")
-public class trial extends HttpServlet {
+@WebServlet(name = "home", value = "/home") //@WebServlet(name="JDBC Demo", urlPatterns="/link")
+public class mainpage extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
