@@ -32,58 +32,86 @@ public class recentorder extends HttpServlet{
         try{
             Class.forName("com.mysql.jdbc.Driver"); //load library
             Connection con = DriverManager.getConnection("jdbc:mysql:// localhost:3306/" + "JustPlantsProducts", "root", "aliceqiu367");
-            Statement stmt = con.createStatement();
+            Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
 
             // selects the user's row
             HttpSession session = req.getSession(true);
-            String uid = (String) session.getAttribute("uid");
-            
-            String sql = "SELECT * FROM order_info WHERE uid = '" + uid + "'";
+            //String uid = (String) session.getAttribute("uid");
+            //System.out.println(uid);
+
+            //String sql = "SELECT * FROM order_info WHERE u_id = '" + uid + "'";
+            String sql = "SELECT * FROM order_info WHERE u_id = '" + 1 + "'";
             ResultSet rs = stmt.executeQuery(sql);
 
             String pid = "";
-            ArrayList<String> recentOrders = new ArrayList<String>();
+            
+            ArrayList<Integer> recentOrders = new ArrayList<Integer>();
 
             // obtains 5 products id
             // if it has record
-            if (rs.last()){   
-                while(rs.previous()){   
+            rs.afterLast();
+             
+            while(rs.previous()){   
+                if (recentOrders.size() == 5)
+                    break;
+
+                // it should be dynamic
+                for (int i = 1; i <= 10; i++){   
                     if (recentOrders.size() == 5)
                         break;
-
-                    // it should be dynamic
-                    for (int i = 1; i <= 10; i++){   
-                        if (recentOrders.size() == 5)
-                            break;
-
-                        pid = "p_" + i;
-                        if (rs.getString(pid) != null)
-                            recentOrders.add(pid);
-                    }
+                    pid = "p_" + i;
+                    if (rs.getString(pid) != null)
+                        recentOrders.add(i);
                 }
-            }           
+            }
+                      
             
             //show 5 recent items
+            String selectProductsSql = "SELECT * FROM products";
+            ResultSet prod_result = stmt.executeQuery(selectProductsSql);
+
             PrintWriter writer = resp.getWriter();
 
             writer.println("<html><body>");
+            writer.println("<h3>My Recent Orders</h3>");
 
             int count = 1;
-            while(rs.next()){
-
+            while(prod_result.next()){
                 if (count == 5)
                     count = 1;
 
-                String name = rs.getString("p_name");
-                String image = rs.getString("imagename");
-                int price = rs.getInt("p_price");
+                int id = prod_result.getInt("id");
+                // if it is a recent order
+                if (recentOrders.contains(id)){
+                    // product info
+                    String name = prod_result.getString("p_name");
+                    String image = prod_result.getString("imagename");
+                    writer.println("<div class=\"col-" + count + "\"><img src=\"images/" + image +"\" alt=\"" + name + "\">");
+                    writer.println("<p class=\"pname\">" + name + "</p>");
 
-                writer.println("<div class=\"col-" + count + "\"><a href=\"./product\"><img src=\"images/" + image +"\" alt=\"" + name + "\">");
-                writer.println("<p class=\"pname\">" + name + "</p>");
-                writer.println("<p class=\"price\"> $" + price + ".00</p></a></div>");
-                count++;             
+                    // style
+                    writer.println("<link href=\"https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css\" rel=\"stylesheet\"/>");
+                    writer.println("<style> .rating-list li {float: right;color: #ddd padding: 10px 5px;}");
+                    writer.println(".rating-list li:hover, .rating-list li:hover~li { color: #ffd700;}");
+                    writer.println(".rating-list {display: inline-block;list-style: none;}</style>");
+                    
+                    // rating stars
+                    writer.println("<ul class=\"list-inline rating-list\">");
+                    writer.println("<li><i class=\"fa fa-star\" title=\"1\"></i></li>");
+                    writer.println("<li><i class=\"fa fa-star\" title=\"2\"></i></li>");
+                    writer.println("<li><i class=\"fa fa-star\" title=\"3\"></i></li>");
+                    writer.println("<li><i class=\"fa fa-star\" title=\"4\"></i></li>");
+                    writer.println("<li><i class=\"fa fa-star\" title=\"5\"></i></li>");
+                    writer.println("</ul>");
+
+                    writer.println("</div>");
+                    count++; 
+                }
             }
             writer.println("</body> </html>");
+
+            prod_result.close();
+            rs.close();
         }
         catch(ClassNotFoundException e){
             e.printStackTrace();
@@ -91,5 +119,6 @@ public class recentorder extends HttpServlet{
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+        
     }
 }

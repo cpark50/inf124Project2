@@ -41,14 +41,12 @@ public class mainpage extends HttpServlet {
 
             // creates session for each user
             HttpSession session = req.getSession(true);
+            
             if (session.isNew()){
                 String uid = String.valueOf(ThreadLocalRandom.current().nextInt());
                 session.setAttribute("uid", uid);
+                System.out.println(uid);
             }
-
-            // includes recent orders
-            RequestDispatcher requestDispatcher = req.getRequestDispatcher("/recentorder");
-            requestDispatcher.include(req, resp);
 
             int count = 1;
 
@@ -58,7 +56,6 @@ public class mainpage extends HttpServlet {
             writer.println("<div class=\"nav_bar\"><ul><li><a class=\"active\" href=\"home\">Home</a></li><li><a href=\"aboutcompany.html\">About Company</a></li><li><a href=\"orderInfo\">Make Order</a></li></ul></div>");
             
             while(rs.next()){
-
                 if (count == 5)
                     count = 1;
 
@@ -72,6 +69,10 @@ public class mainpage extends HttpServlet {
                 writer.println("<p class=\"price\"> $" + price + ".00</p></a></div>");
                 count++;             
             }
+
+            // includes recent orders
+            RequestDispatcher requestDispatcher = req.getRequestDispatcher("/recentorder");
+            requestDispatcher.include(req, resp);
             
             writer.println("</body> </html>");
         }
