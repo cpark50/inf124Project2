@@ -27,7 +27,7 @@ public class orderInfo extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try{ //slow. connection. 
             Class.forName("com.mysql.jdbc.Driver"); //load library
-            Connection con = DriverManager.getConnection("jdbc:mysql:// localhost:3306/" + "pa124", "root", "cindy1234");
+            Connection con = DriverManager.getConnection("jdbc:mysql:// localhost:3306/" + "JustPlantsProducts", "root", "aliceqiu367");
             Statement stmt = con.createStatement();
             String sql = "SELECT * FROM order_info";
             ResultSet rs = stmt.executeQuery(sql);
