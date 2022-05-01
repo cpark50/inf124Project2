@@ -27,9 +27,9 @@ public class product extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try{ //slow. connection. 
             Class.forName("com.mysql.jdbc.Driver"); //load library
-            Connection con = DriverManager.getConnection("jdbc:mysql:// localhost:3306/" + "JustPlantsProducts", "root", "aliceqiu367");
+            Connection con = DriverManager.getConnection("jdbc:mysql:// localhost:3306/" + credentials.schemaName, "root", credentials.passwd);
             Statement stmt = con.createStatement();
-            String sql = "SELECT * FROM products";
+            String sql = "SELECT * FROM "+tables.product;
             ResultSet rs = stmt.executeQuery(sql);
 
             PrintWriter writer = resp.getWriter();
