@@ -39,8 +39,8 @@ public class mainpage extends HttpServlet {
             int count = 1;
 
             PrintWriter writer = resp.getWriter();
-            writer.println("<head> <link rel=\"stylesheet\" href=\"styles/mainpage.css\"></head>");
-            writer.println("<html> <body>     <div class=\"title\"><h1><a href=\"home\">JustPlants</a></h1></div>");
+            writer.println("<html> <head> <link rel=\"stylesheet\" href=\"styles/mainpage.css\"> <title>Just Plants</title> </head>");
+            writer.println("<body> <div class=\"title\"><h1><a href=\"home\">JustPlants</a></h1></div>");
             writer.println("<div class=\"nav_bar\"><ul><li><a class=\"active\" href=\"home\">Home</a></li><li><a href=\"aboutcompany.html\">About Company</a></li><li><a href=\"orderInfo\">Make Order</a></li></ul></div>");
             while(rs.next()){
 
