@@ -7,6 +7,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.concurrent.ThreadLocalRandom;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 
 
@@ -37,15 +39,24 @@ public class mainpage extends HttpServlet {
             String sql = "SELECT * FROM products";
             ResultSet rs = stmt.executeQuery(sql);
 
+            // creates session for each user
+            HttpSession session = req.getSession(true);
+            if (session.isNew()){
+                String uid = String.valueOf(ThreadLocalRandom.current().nextInt());
+                session.setAttribute("uid", uid);
+            }
+
+            // includes recent orders
             RequestDispatcher requestDispatcher = req.getRequestDispatcher("/recentorder");
             requestDispatcher.include(req, resp);
-            
+
             int count = 1;
 
             PrintWriter writer = resp.getWriter();
             writer.println("<html> <head> <link rel=\"stylesheet\" href=\"styles/mainpage.css\"> <title>Just Plants</title> </head>");
             writer.println("<body> <div class=\"title\"><h1><a href=\"home\">JustPlants</a></h1></div>");
             writer.println("<div class=\"nav_bar\"><ul><li><a class=\"active\" href=\"home\">Home</a></li><li><a href=\"aboutcompany.html\">About Company</a></li><li><a href=\"orderInfo\">Make Order</a></li></ul></div>");
+            
             while(rs.next()){
 
                 if (count == 5)
@@ -53,7 +64,7 @@ public class mainpage extends HttpServlet {
 
                 String name = rs.getString("p_name");
                 String image = rs.getString("imagename");
-                Integer price = rs.getInt("p_price");
+                int price = rs.getInt("p_price");
                 //boolean: getBlob
                 //send to product page with id number for the database
                 writer.println("<div class=\"col-" + count + "\"><a href=\"./product\"><img src=\"images/" + image +"\" alt=\"" + name + "\">");
@@ -61,6 +72,7 @@ public class mainpage extends HttpServlet {
                 writer.println("<p class=\"price\"> $" + price + ".00</p></a></div>");
                 count++;             
             }
+            
             writer.println("</body> </html>");
         }
         catch(ClassNotFoundException e){
