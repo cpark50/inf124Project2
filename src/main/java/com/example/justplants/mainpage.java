@@ -36,20 +36,26 @@ public class mainpage extends HttpServlet {
             String sql = "SELECT * FROM product";
             ResultSet rs = stmt.executeQuery(sql);
 
+            int count = 1;
+
             PrintWriter writer = resp.getWriter();
             writer.println("<head> <link rel=\"stylesheet\" href=\"styles/mainpage.css\"></head>");
             writer.println("<html> <body>     <div class=\"title\"><h1><a href=\"home\">JustPlants</a></h1></div>");
             writer.println("<div class=\"nav_bar\"><ul><li><a class=\"active\" href=\"home\">Home</a></li><li><a href=\"aboutcompany.html\">About Company</a></li><li><a href=\"orderInfo\">Make Order</a></li></ul></div>");
             while(rs.next()){
-                Integer p_id = rs.getInt("id");
+
+                if (count == 5)
+                    count = 1;
+
                 String name = rs.getString("p_name");
                 String image = rs.getString("imagename");
                 Integer price = rs.getInt("p_price");
                 //boolean: getBlob
                 //send to product page with id number for the database
-                writer.println("<div class=\"col-" + p_id + "\"><a href=\"./product\"><img src=\"images/" + image +"\" alt=\"" + name + "\">");
+                writer.println("<div class=\"col-" + count + "\"><a href=\"./product\"><img src=\"images/" + image +"\" alt=\"" + name + "\">");
                 writer.println("<p class=\"pname\">" + name + "</p>");
-                writer.println("<p class=\"price\"> $" + price + ".00</p></a></div>");             
+                writer.println("<p class=\"price\"> $" + price + ".00</p></a></div>");
+                count++;             
             }
             writer.println("</body> </html>");
         }
