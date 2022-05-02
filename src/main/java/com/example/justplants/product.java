@@ -79,13 +79,6 @@ public class Product extends HttpServlet {
             writer.println("friendliness: "+friend+"<br></p></div>");
             writer.println("</div></div>");
 
-                //boolean: getBlob
-                //send to product page with id number for the database
-        //     writer.println("<div><a href=\"./product\"><img src=\"../images/" + image +"\" alt=\"" + name + "\">");
-        //     writer.println("<p class=\"pname\">" + name + "</p>");
-        //     writer.println("<p class=\"price\"> $" + price + ".00</p></a></div>");             
-        
-        //     writer.println("</body> </html>");
         }
         catch(ClassNotFoundException e){
             e.printStackTrace();
