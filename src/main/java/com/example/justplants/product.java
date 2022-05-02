@@ -41,7 +41,7 @@ public class product extends HttpServlet {
             Class.forName("com.mysql.jdbc.Driver"); //load library
             Connection con = DriverManager.getConnection("jdbc:mysql:// localhost:3306/" + credentials.schemaName, "root", credentials.passwd);
             Statement stmt = con.createStatement();
-            String sql = "SELECT * FROM "+tables.product+"WHERE id=" +plant_id;
+            String sql = "SELECT * FROM "+tables.product+" WHERE id=" +plant_id;
             ResultSet rs = stmt.executeQuery(sql);
             while(rs.next()){
                 name = rs.getString("p_name");
