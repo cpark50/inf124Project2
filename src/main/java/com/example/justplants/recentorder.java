@@ -76,7 +76,7 @@ public class recentorder extends HttpServlet{
 
             Class.forName("com.mysql.jdbc.Driver"); //load library
             Connection con = DriverManager.getConnection("jdbc:mysql:// localhost:3306/" + credentials.schemaName, "root", credentials.passwd);
-            Statement stmt = con.createStatement();
+            Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
 
             HttpSession session = req.getSession(true);
             String uid = (String) session.getAttribute("uid");
