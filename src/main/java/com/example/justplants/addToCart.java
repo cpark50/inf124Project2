@@ -21,7 +21,7 @@ import javax.servlet.http.HttpSession;
 
 //when to close the db? 
 //add information to and query table
-@WebServlet(name = "add-to-cart", urlPatterns = "add-to-cart/*") //@WebServlet(name="JDBC Demo", urlPatterns="/link")
+@WebServlet(name = "addToCart") //@WebServlet(name="JDBC Demo", urlPatterns="/link")
 public class addToCart extends HttpServlet {
 
     @Override
@@ -29,43 +29,65 @@ public class addToCart extends HttpServlet {
         super.init();
     }
     
+    // @Override
+    // protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    //     resp.setContentType("text/html;charset=UTF-8");
+    //     try(PrintWriter out = resp.getWriter()){ //slow. connection. 
+    //         HttpSession session = req.getSession(true);
+    //         int plant_id = Integer.parseInt(req.getParameter("plant_name"));
+    //         int plant_qt = Integer.parseInt(req.getParameter("quantity"));
+            
+    //         int[] currentCart = (int[]) session.getAttribute("cart");
+            
+    //         if (currentCart == null){
+    //             currentCart = new int[11];
+    //             currentCart[plant_id] += plant_qt;
+    //         }
+    //         else {
+    //             currentCart[plant_id] += plant_qt;
+    //         }
+    //         session.setAttribute("cart", currentCart);
+    //         out.println("session created and added the item");
+    //     }
+        
+
+    // }
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        
         try{ //slow. connection. 
-            HttpSession session = new req.getSession(true);
+            HttpSession session = req.getSession(true);
+            PrintWriter writer = resp.getWriter();
+            int plant_id = Integer.parseInt(req.getParameter("plant_name"));
+            int plant_qt = Integer.parseInt(req.getParameter("quantity"));
+            int[] currentCart = (int[]) session.getAttribute("cart");
+            
+            if (currentCart == null){
+                currentCart = new int[11];
+                currentCart[plant_id] += plant_qt;
+            }
+            else {
+                currentCart[plant_id] += plant_qt;
+            }
+            session.setAttribute("cart", currentCart);
+            // RequestDispatcher dispatcher = req.getRequestDispatcher("product");
+            // dispatcher.include(req, resp);
+            session.setAttribute("added", true);
+            resp.sendRedirect("http://localhost:8080/ecommerce/product/"+plant_id);
+
+
             Class.forName("com.mysql.jdbc.Driver"); //load library
             Connection con = DriverManager.getConnection("jdbc:mysql:// localhost:3306/" + credentials.schemaName, "root", credentials.passwd);
             Statement stmt = con.createStatement();
-            String sql = "SELECT * FROM "+tables.product;
+            String sql = "SELECT * FROM "+tables.product+" WHERE id=" +plant_id;
             ResultSet rs = stmt.executeQuery(sql);
-
-            int count = 1;
-
-            PrintWriter writer = resp.getWriter();
-            writer.println("<html> <head> <link rel=\"stylesheet\" href=\"styles/mainpage.css\"> <title>Just Plants</title> </head>");
-            writer.println("<body> <div class=\"title\"><h1><a href=\"\">JustPlants</a></h1></div>");
-            writer.println("<div class=\"nav_bar\"><ul><li><a class=\"active\" href=\"\">Home</a></li><li><a href=\"aboutcompany.html\">About Company</a></li><li><a href=\"orderInfo\">Make Order</a></li></ul></div>");
-            while(rs.next()){
-                if (count == 6)
-                    count = 1;
-
-                String name = rs.getString("p_name");
-                String image = rs.getString("imagename");
-                Integer price = rs.getInt("p_price");
-                Integer p_id = rs.getInt("id");
-                
-                //send to product page with p_id number for the database
-                writer.println("<div class=\"col-" + count + "\" id=\""+ p_id +"\"><a href=\"./product/"+p_id+"\"><img src=\"images/" + image +"\" alt=\"" + name + "\">");
-                writer.println("<p class=\"pname\">" + name + "</p>");
-                writer.println("<p class=\"price\"> $" + price + ".00</p></a></div>");
-                count++;             
-            }
-
-            // includes recent orders
-            RequestDispatcher requestDispatcher = req.getRequestDispatcher("/recentorder");
-            requestDispatcher.include(req, resp);
             
-            writer.println("</body> </html>");
+            writer.println("<div class=\"product-price\"><span> $" + ".00 </span></div>");
+            writer.println("<div class=\"order-button\"><form action=\"../addToCart\" method=\"get\">");
+            writer.println("<input type=\"number\" name=\"quantity\" step=\"1\" min=\"1\" max=\"\" value=\"1\" title=\"Qty\" class=\"input-text qty text\" size=\"2\" pattern=\"\" inputmode=\"\">");
+            writer.println("<input type=\"hidden\" name=\"plant_name\" value=\""+plant_id+"\">");
+            writer.println("<button type=\"submit\">Add to cart</button></form>");
+            writer.println("</div></div></main>");
         }
         catch(ClassNotFoundException e){
             e.printStackTrace();
@@ -73,6 +95,5 @@ public class addToCart extends HttpServlet {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-
     }
 }

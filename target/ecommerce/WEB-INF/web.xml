@@ -8,8 +8,16 @@
     <servlet-name>product</servlet-name>
     <servlet-class>com.example.justplants.product</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>addToCart</servlet-name>
+    <servlet-class>com.example.justplants.addToCart</servlet-class>
+  </servlet>
   <servlet-mapping>
     <servlet-name>product</servlet-name>
     <url-pattern>/product/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>addToCart</servlet-name>
+    <url-pattern>/addToCart/*</url-pattern>
   </servlet-mapping>
 </web-app>
