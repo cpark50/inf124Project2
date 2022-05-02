@@ -12,6 +12,13 @@
     <servlet-name>addToCart</servlet-name>
     <servlet-class>com.example.justplants.addToCart</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>viewCart</servlet-name>
+    <servlet-class>com.example.justplants.viewShoppingCart</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>viewCart</servlet-name>
+    <url-pattern>/product/*</url-pattern>
   <servlet-mapping>
     <servlet-name>product</servlet-name>
     <url-pattern>/product/*</url-pattern>
