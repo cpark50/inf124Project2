@@ -1,4 +1,4 @@
-ackage com.example.justplants;
+package com.example.justplants;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -55,8 +55,8 @@ public class viewShoppingCart extends HttpServlet {
 
             PrintWriter writer = resp.getWriter();
             writer.println("<html> <head> <link rel=\"stylesheet\" href=\"styles/mainpage.css\"> <title>Just Plants</title> </head>");
-            writer.println("<body> <div class=\"title\"><h1><a href=\"\">JustPlants</a></h1></div>");
-            writer.println("<div class=\"nav_bar\"><ul><li><a class=\"active\" href=\"\">Home</a></li><li><a href=\"aboutcompany.html\">About Company</a></li><li><a href=\"orderInfo\">View Shopping Cart("+ totalPlants+ ")</a></li></ul></div>");
+            writer.println("<body> <div class=\"title\"><h1><a href=\"./\">JustPlants</a></h1></div>");
+            writer.println("<div class=\"nav_bar\"><ul><li><a class=\"active\" href=\"./\">Home</a></li><li><a href=\"aboutcompany.html\">About Company</a></li><li><a href=\"viewCart\">View Shopping Cart("+ totalPlants+ ")</a></li></ul></div>");
             
             //The cart is empty
             if (null == session.getAttribute("cart")){
@@ -67,17 +67,22 @@ public class viewShoppingCart extends HttpServlet {
                     int[] userCart = (int[]) session.getAttribute("cart");
                     String name = rs.getString("p_name");
                     String image = rs.getString("imagename");
-                    Integer price = rs.getInt("p_price");
-                    Integer p_id = rs.getInt("id");
+                    int price = rs.getInt("p_price");
+                    int p_id = rs.getInt("id");
+                    int quantity = 0;
     
                     if (userCart[p_id] > 0){
+                        quantity = userCart[p_id];
                         writer.println("<div class=\"col-" + count + "\" id=\""+ p_id +"\"><a href=\"./product/"+p_id+"\"><img src=\"images/" + image +"\" alt=\"" + name + "\">");
                         writer.println("<p class=\"pname\">" + name + "</p>");
-                        writer.println("<p class=\"price\"> $" + price + ".00</p></a><");
-                        writer.println("<p class=\"quantity\"> Quantity: "+ userCart[p_id]+"</p></a></div>");
+                        writer.println("<p class=\"price\"> $" + price + ".00</p></a>");
+                        writer.println("<p class=\"quantity\"> Quantity: "+ quantity+"</p></a>");
+                        writer.println("<p class=\"total price\"> Price: $"+ price*quantity+".00 </p></a>");
+                        writer.println("</div>");
+                        count++;
                     }
                     //send to product page with p_id number for the database
-                    count++;  
+                      
                 }
             } 
                 

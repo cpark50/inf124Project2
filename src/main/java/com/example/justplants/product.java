@@ -47,14 +47,11 @@ public class product extends HttpServlet {
                 session.setAttribute("visitorId", userId);
             }
 
-            if (session.getAttribute("currentPlant") == null){
-                String str_url = req.getRequestURL().toString();
-                plant_id = str_url.substring(str_url.lastIndexOf('/')+1);
-                session.setAttribute("currentPlant", plant_id);
-            }
-            else {
-                plant_id = (String) session.getAttribute("currentPlant");
-            }
+            String str_url = req.getRequestURL().toString();
+            plant_id = str_url.substring(str_url.lastIndexOf('/')+1);
+            session.setAttribute("currentPlant", plant_id);
+        
+            plant_id = (String) session.getAttribute("currentPlant");
 
             int totalPlants = 0;
 
@@ -88,7 +85,7 @@ public class product extends HttpServlet {
             writer.println("<html><head>");
             writer.println("<link rel=\"stylesheet\" href=\"../styles/productpage.css\"> <title>Just Plants</title> </head>");
             writer.println("<body> <div class=\"title\"><h1><a href=\"../\">JustPlants</a></h1></div>");
-            writer.println("<div class=\"nav_bar\"><ul><li><a class=\"active\" href=\"../\">Home</a></li><li><a href=\"../aboutcompany.html\">About Company</a></li><li><a href=\"../orderInfo\">View My Cart("+totalPlants+")</a></li></ul></div>");
+            writer.println("<div class=\"nav_bar\"><ul><li><a class=\"active\" href=\"../\">Home</a></li><li><a href=\"../aboutcompany.html\">About Company</a></li><li><a href=\"../viewCart\">View My Cart("+totalPlants+")</a></li></ul></div>");
             writer.println("<div class=\"item-title\">");
             writer.println("<span>Plants</span><h1>"+ name + "</h1></div>");
             writer.println("<main class = \"container\">");
