@@ -79,7 +79,7 @@ public class recentorder extends HttpServlet{
             Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
 
             HttpSession session = req.getSession(true);
-            String uid = (String) session.getAttribute("uid");
+            String uid = (String) session.getAttribute("visitorId");
             String sql = "SELECT * FROM order_info WHERE u_id = " + uid;;
             //String sql = "SELECT * FROM order_info WHERE u_id = 1";
             ResultSet rs = stmt.executeQuery(sql);
