@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 @WebServlet(name = "product")
-public class Product extends HttpServlet {
+public class product extends HttpServlet {
 
     @Override
     public void init() throws ServletException {

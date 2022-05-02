@@ -21,7 +21,7 @@ import javax.servlet.http.HttpSession;
 //when to close the db? 
 //add information to and query table
 @WebServlet(name = "home", urlPatterns = "") //@WebServlet(name="JDBC Demo", urlPatterns="/link")
-public class Mainpage extends HttpServlet {
+public class mainpage extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
