@@ -16,15 +16,24 @@
     <servlet-name>viewCart</servlet-name>
     <servlet-class>com.example.justplants.viewShoppingCart</servlet-class>
   </servlet>
-  <servlet-mapping>
+  <servlet>
+    <servlet-name>orderInfo</servlet-name>
+    <servlet-class>com.example.justplants.orderInfo</servlet-class>
+  </servlet>
+    <servlet-mapping>
     <servlet-name>viewCart</servlet-name>
-    <url-pattern>/product/*</url-pattern>
+    <url-pattern>/viewCart/*</url-pattern>
+  </servlet-mapping>
   <servlet-mapping>
     <servlet-name>product</servlet-name>
     <url-pattern>/product/*</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>addToCart</servlet-name>
-    <url-pattern>/addToCart/*</url-pattern>
+    <url-pattern>/addToCart/*</url-pattern> 
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>orderInfo</servlet-name>
+    <url-pattern>/orderInfo</url-pattern>
   </servlet-mapping>
 </web-app>

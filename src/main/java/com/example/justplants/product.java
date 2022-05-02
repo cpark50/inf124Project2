@@ -97,7 +97,7 @@ public class product extends HttpServlet {
 
             writer.println("<div class=\"product-description\">");
             writer.println("<p> <i> othername: "+ othername + "</i></p>");
-            writer.println("<p>"+dscrptn);
+            writer.println("<p>"+dscrptn+"<br><br>");
             writer.println("<i>size (height × width × diameter): <br>");
             writer.println(size+"</i><br><br></i>");
             writer.println("<i>How to take care:</i><br>");
