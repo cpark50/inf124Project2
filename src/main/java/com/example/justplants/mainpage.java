@@ -7,6 +7,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.concurrent.ThreadLocalRandom;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -38,9 +39,6 @@ public class Mainpage extends HttpServlet {
             String sql = "SELECT * FROM "+tables.product;
             ResultSet rs = stmt.executeQuery(sql);
 
-            RequestDispatcher requestDispatcher = req.getRequestDispatcher("/recentorder");
-            requestDispatcher.include(req, resp);
-            
             int count = 1;
 
             PrintWriter writer = resp.getWriter();
@@ -48,8 +46,7 @@ public class Mainpage extends HttpServlet {
             writer.println("<body> <div class=\"title\"><h1><a href=\"\">JustPlants</a></h1></div>");
             writer.println("<div class=\"nav_bar\"><ul><li><a class=\"active\" href=\"\">Home</a></li><li><a href=\"aboutcompany.html\">About Company</a></li><li><a href=\"orderInfo\">Make Order</a></li></ul></div>");
             while(rs.next()){
-
-                if (count == 5)
+                if (count == 6)
                     count = 1;
 
                 String name = rs.getString("p_name");
@@ -63,7 +60,11 @@ public class Mainpage extends HttpServlet {
                 writer.println("<p class=\"price\"> $" + price + ".00</p></a></div>");
                 count++;             
             }
-            writer.println("");
+
+            // includes recent orders
+            RequestDispatcher requestDispatcher = req.getRequestDispatcher("/recentorder");
+            requestDispatcher.include(req, resp);
+            
             writer.println("</body> </html>");
         }
         catch(ClassNotFoundException e){
