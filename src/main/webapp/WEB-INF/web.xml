@@ -22,7 +22,7 @@
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>addToCart</servlet-name>
-    <url-pattern>/addToCart/*</url-pattern> 
+    <url-pattern>/addToCart/*</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>orderInfo</servlet-name>
