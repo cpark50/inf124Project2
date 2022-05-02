@@ -21,23 +21,18 @@ import javax.servlet.http.HttpSession;
 
 //when to close the db? 
 //add information to and query table
-@WebServlet(name = "home", urlPatterns = "") //@WebServlet(name="JDBC Demo", urlPatterns="/link")
-public class mainpage extends HttpServlet {
+@WebServlet(name = "add-to-cart", urlPatterns = "add-to-cart/*") //@WebServlet(name="JDBC Demo", urlPatterns="/link")
+public class addToCart extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
         super.init();
-        
     }
     
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try{ //slow. connection. 
-            HttpSession session = req.getSession(true);
-            if (session.isNew()){
-                int userId = ThreadLocalRandom.current().nextInt();
-                session.setAttribute("visitorId", userId);
-            }
+            HttpSession session = new req.getSession(true);
             Class.forName("com.mysql.jdbc.Driver"); //load library
             Connection con = DriverManager.getConnection("jdbc:mysql:// localhost:3306/" + credentials.schemaName, "root", credentials.passwd);
             Statement stmt = con.createStatement();
