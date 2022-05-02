@@ -77,9 +77,13 @@ public class recentorder extends HttpServlet{
             Class.forName("com.mysql.jdbc.Driver"); //load library
             Connection con = DriverManager.getConnection("jdbc:mysql:// localhost:3306/" + credentials.schemaName, "root", credentials.passwd);
             Statement stmt = con.createStatement();
-            String sql = "SELECT * FROM "+tables.order;
+
+            HttpSession session = req.getSession(true);
+            String uid = (String) session.getAttribute("uid");
+            String sql = "SELECT * FROM order_info WHERE u_id = " + uid;;
             ResultSet rs = stmt.executeQuery(sql);
 
+            
             String pid = "";
             ArrayList<Integer> recentOrders = new ArrayList<Integer>();
 
