@@ -72,7 +72,8 @@ public class addToCart extends HttpServlet {
             session.setAttribute("cart", currentCart);
             // RequestDispatcher dispatcher = req.getRequestDispatcher("product");
             // dispatcher.include(req, resp);
-            session.setAttribute("added", true);
+            int totalPlants = (int) session.getAttribute("totalPlants");
+            session.setAttribute("totalPlants", totalPlants + plant_qt);
             resp.sendRedirect("http://localhost:8080/ecommerce/product/"+plant_id);
 
 

@@ -38,8 +38,10 @@ public class product extends HttpServlet {
         String friend = "best kept away from pets and children";        
         
         try{ //slow. connection. 
+            PrintWriter writer = resp.getWriter();
             String plant_id = "";
             HttpSession session = req.getSession(true);
+            
             if (session.isNew()){
                 int userId = ThreadLocalRandom.current().nextInt();
                 session.setAttribute("visitorId", userId);
@@ -52,6 +54,15 @@ public class product extends HttpServlet {
             }
             else {
                 plant_id = (String) session.getAttribute("currentPlant");
+            }
+
+            int totalPlants = 0;
+
+            if(null == session.getAttribute("totalPlants")) {
+                session.setAttribute("totalPlants", totalPlants);
+            }
+            else {
+                totalPlants = (int) session.getAttribute("totalPlants");
             }
            
 
@@ -74,11 +85,10 @@ public class product extends HttpServlet {
                     friend = "pet and children friendly";
                 }
             }
-
-            PrintWriter writer = resp.getWriter();
-            writer.println("<html> <head> <link rel=\"stylesheet\" href=\"../styles/productpage.css\"> <title>Just Plants</title> </head>");
+            writer.println("<html><head>");
+            writer.println("<link rel=\"stylesheet\" href=\"../styles/productpage.css\"> <title>Just Plants</title> </head>");
             writer.println("<body> <div class=\"title\"><h1><a href=\"../\">JustPlants</a></h1></div>");
-            writer.println("<div class=\"nav_bar\"><ul><li><a class=\"active\" href=\"../\">Home</a></li><li><a href=\"../aboutcompany.html\">About Company</a></li><li><a href=\"../orderInfo\">Make Order</a></li></ul></div>");
+            writer.println("<div class=\"nav_bar\"><ul><li><a class=\"active\" href=\"../\">Home</a></li><li><a href=\"../aboutcompany.html\">About Company</a></li><li><a href=\"../orderInfo\">View My Cart("+totalPlants+")</a></li></ul></div>");
             writer.println("<div class=\"item-title\">");
             writer.println("<span>Plants</span><h1>"+ name + "</h1></div>");
             writer.println("<main class = \"container\">");
