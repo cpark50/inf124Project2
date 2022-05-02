@@ -81,6 +81,7 @@ public class recentorder extends HttpServlet{
             HttpSession session = req.getSession(true);
             String uid = (String) session.getAttribute("uid");
             String sql = "SELECT * FROM order_info WHERE u_id = " + uid;;
+            //String sql = "SELECT * FROM order_info WHERE u_id = 1";
             ResultSet rs = stmt.executeQuery(sql);
 
             
@@ -135,6 +136,7 @@ public class recentorder extends HttpServlet{
                     writer.println("<div class=\"col-" + count + "\"><img src=\"images/" + image +"\" alt=\"" + name + "\">");
                     writer.println("<p class=\"pname\">" + name + "</p>");
 
+                    //Star stars = new Star("1" + id, 5, 0, 0, 4, 16, false);
                     Star stars = new Star(uid + id, 5, 0, 0, 4, 16, false);
                     stars.appendStarHTML(resp);
 
