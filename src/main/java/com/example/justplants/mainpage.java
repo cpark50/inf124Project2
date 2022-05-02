@@ -33,6 +33,11 @@ public class mainpage extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try{ //slow. connection. 
+            HttpSession session = req.getSession(true);
+            if (session.isNew()){
+                int userId = ThreadLocalRandom.current().nextInt();
+                session.setAttribute("visitorId", userId);
+            }
             Class.forName("com.mysql.jdbc.Driver"); //load library
             Connection con = DriverManager.getConnection("jdbc:mysql:// localhost:3306/" + credentials.schemaName, "root", credentials.passwd);
             Statement stmt = con.createStatement();
@@ -40,11 +45,19 @@ public class mainpage extends HttpServlet {
             ResultSet rs = stmt.executeQuery(sql);
 
             int count = 1;
+            int totalPlants = 0;
+
+            if(null == session.getAttribute("totalPlants")) {
+                session.setAttribute("totalPlants", totalPlants);
+            }
+            else {
+                totalPlants = (int) session.getAttribute("totalPlants");
+            }
 
             PrintWriter writer = resp.getWriter();
             writer.println("<html> <head> <link rel=\"stylesheet\" href=\"styles/mainpage.css\"> <title>Just Plants</title> </head>");
             writer.println("<body> <div class=\"title\"><h1><a href=\"\">JustPlants</a></h1></div>");
-            writer.println("<div class=\"nav_bar\"><ul><li><a class=\"active\" href=\"\">Home</a></li><li><a href=\"aboutcompany.html\">About Company</a></li><li><a href=\"orderInfo\">Make Order</a></li></ul></div>");
+            writer.println("<div class=\"nav_bar\"><ul><li><a class=\"active\" href=\"\">Home</a></li><li><a href=\"aboutcompany.html\">About Company</a></li><li><a href=\"orderInfo\">View Shopping Cart("+ totalPlants+ ")</a></li></ul></div>");
             while(rs.next()){
                 if (count == 6)
                     count = 1;

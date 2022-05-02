@@ -5,11 +5,19 @@
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
   <servlet>
-    <servlet-name>Product</servlet-name>
-    <servlet-class>com.example.justplants.Product</servlet-class>
+    <servlet-name>product</servlet-name>
+    <servlet-class>com.example.justplants.product</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>addToCart</servlet-name>
+    <servlet-class>com.example.justplants.addToCart</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>Product</servlet-name>
+    <servlet-name>product</servlet-name>
     <url-pattern>/product/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>addToCart</servlet-name>
+    <url-pattern>/addToCart/*</url-pattern>
   </servlet-mapping>
 </web-app>
