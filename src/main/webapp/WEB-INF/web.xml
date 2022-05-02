@@ -23,6 +23,7 @@
   <servlet-mapping>
     <servlet-name>addToCart</servlet-name>
     <url-pattern>/addToCart/*</url-pattern> 
+  </servlet-mapping>
   <servlet-mapping>
     <servlet-name>orderInfo</servlet-name>
     <url-pattern>/orderInfo</url-pattern>
