@@ -39,9 +39,9 @@ public class Product extends HttpServlet {
             String str_url = req.getRequestURL().toString();
             String plant_id = str_url.substring(str_url.lastIndexOf('/')+1);
             Class.forName("com.mysql.jdbc.Driver"); //load library
-            Connection con = DriverManager.getConnection("jdbc:mysql:// localhost:3306/" + "pa124", "root", "cindy1234");
+            Connection con = DriverManager.getConnection("jdbc:mysql:// localhost:3306/" + credentials.schemaName, "root", credentials.passwd);
             Statement stmt = con.createStatement();
-            String sql = "SELECT * FROM products WHERE id =" + plant_id;
+            String sql = "SELECT * FROM "+tables.product+"WHERE id=" +plant_id;
             ResultSet rs = stmt.executeQuery(sql);
             while(rs.next()){
                 name = rs.getString("p_name");
