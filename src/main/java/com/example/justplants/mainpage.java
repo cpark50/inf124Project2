@@ -39,15 +39,6 @@ public class mainpage extends HttpServlet {
             String sql = "SELECT * FROM products";
             ResultSet rs = stmt.executeQuery(sql);
 
-            // creates session for each user
-            HttpSession session = req.getSession(true);
-            
-            if (session.isNew()){
-                String uid = String.valueOf(ThreadLocalRandom.current().nextInt());
-                session.setAttribute("uid", uid);
-                System.out.println(uid);
-            }
-
             int count = 1;
 
             PrintWriter writer = resp.getWriter();
@@ -56,7 +47,7 @@ public class mainpage extends HttpServlet {
             writer.println("<div class=\"nav_bar\"><ul><li><a class=\"active\" href=\"home\">Home</a></li><li><a href=\"aboutcompany.html\">About Company</a></li><li><a href=\"orderInfo\">Make Order</a></li></ul></div>");
             
             while(rs.next()){
-                if (count == 5)
+                if (count == 6)
                     count = 1;
 
                 String name = rs.getString("p_name");
