@@ -82,13 +82,14 @@ public class addToCart extends HttpServlet {
             Statement stmt = con.createStatement();
             String sql = "SELECT * FROM "+tables.product+" WHERE id=" +plant_id;
             ResultSet rs = stmt.executeQuery(sql);
+            con.close();
             
-            writer.println("<div class=\"product-price\"><span> $" + ".00 </span></div>");
-            writer.println("<div class=\"order-button\"><form action=\"../addToCart\" method=\"get\">");
-            writer.println("<input type=\"number\" name=\"quantity\" step=\"1\" min=\"1\" max=\"\" value=\"1\" title=\"Qty\" class=\"input-text qty text\" size=\"2\" pattern=\"\" inputmode=\"\">");
-            writer.println("<input type=\"hidden\" name=\"plant_name\" value=\""+plant_id+"\">");
-            writer.println("<button type=\"submit\">Add to cart</button></form>");
-            writer.println("</div></div></main>");
+            // writer.println("<div class=\"product-price\"><span> $" + ".00 </span></div>");
+            // writer.println("<div class=\"order-button\"><form action=\"../addToCart\" method=\"get\">");
+            // writer.println("<input type=\"number\" name=\"quantity\" step=\"1\" min=\"1\" max=\"\" value=\"1\" title=\"Qty\" class=\"input-text qty text\" size=\"2\" pattern=\"\" inputmode=\"\">");
+            // writer.println("<input type=\"hidden\" name=\"plant_name\" value=\""+plant_id+"\">");
+            // writer.println("<button type=\"submit\">Add to cart</button></form>");
+            // writer.println("</div></div></main>");
         }
         catch(ClassNotFoundException e){
             e.printStackTrace();
