@@ -44,7 +44,7 @@ public class keepOrder extends HttpServlet {
             out.println("<div class=\"nav_bar\"><ul><li><a class=\"active\" href=\"./\">Home</a></li><li><a href=\"aboutcompany.html\">About Company</a></li></ul></div>");
             out.println("<body> <div class=\"orderconfirmed\"><h1>Order Confirmed</h1></div>");
             if(currentCart!=null){
-                out.println("<div class=orderInfo>Hello User "+userId+", Your order is: </div>");
+                out.println("<div class=\"orderInfo\">Hello User "+userId+", Your order is: </div>");
                 for(int i=1; i<11; i++){
                     if(currentCart[i]>0){
                         sql = "INSERT INTO order_info(u_id,p_"+i+")" +
@@ -56,6 +56,8 @@ public class keepOrder extends HttpServlet {
                 }
                 out.println("<div class=orderInfo>Total is $"+total+".00 </div>");
                 Arrays.fill(currentCart, 0);
+                session.setAttribute("cart", currentCart);
+                session.setAttribute("totalPlants", 0);
             }
             out.println("</body></html>");    
         }
