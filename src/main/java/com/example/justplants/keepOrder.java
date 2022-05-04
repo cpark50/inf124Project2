@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Arrays;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -53,6 +54,7 @@ public class keepOrder extends HttpServlet {
                     }
                 }
                 out.println("<div class=orderInfo>Total is $"+total+".00 </div>");
+                Arrays.fill(currentCart, 0);
             }
             out.println("</body></html>");    
         }
