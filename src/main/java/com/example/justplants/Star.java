@@ -87,6 +87,7 @@ public class Star {
 		return sb.toString();
 	}
 	
+	
 	public void appendStarHTML(HttpServletResponse response) throws IOException {
 		response.getWriter().append(getHTML());
 	}

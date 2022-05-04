@@ -5,3 +5,4 @@ public class tables {
     static String order="order_info";
     static String rating="ratings";
 }
+
