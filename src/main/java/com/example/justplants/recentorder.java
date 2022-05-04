@@ -83,15 +83,18 @@ public class recentorder extends HttpServlet{
             Map<String, String[]> params = req.getParameterMap();
             if(params.get("action") != null){
                 String p1 = params.get("product")[0];
-                String pindex = p1.substring(0, p1.indexOf('_'));
+                String pindex = p1.substring(uid.length(), p1.indexOf('_'));
                 int rate = Integer.valueOf(params.get("rate")[0]);
+                System.out.println("uid: " + uid);
+                System.out.println("p1: " + p1);
+                System.out.println("pindex: " + pindex);
                 String storeRatingsql = "REPLACE INTO rating VALUES (" + "'" + uid + "_" + pindex + "'" + "," + uid + "," + pindex + "," + rate + ")";
                 stmt.executeUpdate(storeRatingsql);
                 //System.out.println(pindex+ ": " +rate);
                 return;
             }
 
-            String sql = "SELECT * FROM order_info WHERE u_id = " + uid;;
+            String sql = "SELECT * FROM order_info WHERE u_id = " + uid;
             //String sql = "SELECT * FROM order_info WHERE u_id = 1";
             ResultSet rs = stmt.executeQuery(sql);
 
@@ -115,7 +118,7 @@ public class recentorder extends HttpServlet{
             }
                       
             //show 5 recent items
-            String selectProductsSql = "SELECT * FROM products";
+            String selectProductsSql = "SELECT * FROM " + tables.product;
             ResultSet prod_result = stmt.executeQuery(selectProductsSql);
 
             PrintWriter writer = resp.getWriter();
