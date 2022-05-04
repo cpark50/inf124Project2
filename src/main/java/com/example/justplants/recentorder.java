@@ -72,11 +72,13 @@ public class recentorder extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try{
+            System.out.println("recentorder -> get");
             Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
-
+            System.out.println("recentorder -> connected");
             HttpSession session = req.getSession(true);
             //String uid = "1";
-            String uid = (String) session.getAttribute("visitorId");
+            String uid = String.valueOf(session.getAttribute("visitorId"));
+            System.out.println(uid);
 
             Map<String, String[]> params = req.getParameterMap();
             if(params.get("action") != null){
@@ -155,6 +157,7 @@ public class recentorder extends HttpServlet{
         }catch(SQLException e)
         {
             e.printStackTrace();
+            System.out.println("recent order exception");
         }   
     }
 }
