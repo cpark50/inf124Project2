@@ -55,7 +55,7 @@ public class viewShoppingCart extends HttpServlet {
             }
 
             PrintWriter writer = resp.getWriter();
-            writer.println("<html> <head> <link rel=\"stylesheet\" href=\"styles/mainpage.css\"> <title>Just Plants</title> </head>");
+            writer.println("<html> <head> <link rel=\"stylesheet\" href=\"styles/viewcart.css\"> <title>Just Plants</title> </head>");
             writer.println("<body> <div class=\"title\"><h1><a href=\"./\">JustPlants</a></h1></div>");
             writer.println("<div class=\"nav_bar\"><ul><li><a class=\"active\" href=\"./\">Home</a></li><li><a href=\"aboutcompany.html\">About Company</a></li><li><a href=\"viewCart\">View Shopping Cart("+ totalPlants+ ")</a></li></ul></div>");
             
@@ -80,7 +80,7 @@ public class viewShoppingCart extends HttpServlet {
                         writer.println("<div class=\"col-" + count + "\" id=\""+ p_id +"\"><a href=\"./product/"+p_id+"\"><img src=\"images/" + image +"\" alt=\"" + name + "\">");
                         writer.println("<p class=\"pname\">" + name + "</p>");
                         writer.println("<p class=\"price\"> $" + price + ".00</p></a>");
-                        writer.println("<input type=\"number\" name=\"quantity"+p_id+"\" step=\"1\" min=\"1\" max=\"\" value=\""+ quantity +"\" title=\"Qty\" class=\"input-text qty text\" size=\"2\" pattern=\"\" inputmode=\"\">");
+                        writer.println("<input type=\"number\" name=\"plant"+p_id+"\" step=\"1\" min=\"1\" max=\"30\" value=\""+ quantity +"\" title=\"Qty\" class=\"input-text qty text\" size=\"2\" pattern=\"\" inputmode=\"\">");
                         //writer.println("<p class=\"total price\"> Price: $"+ price*quantity+".00 </p></a>");
                         writer.println("</div>");
                         count++;
