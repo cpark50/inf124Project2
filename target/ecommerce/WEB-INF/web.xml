@@ -20,7 +20,15 @@
     <servlet-name>orderInfo</servlet-name>
     <servlet-class>com.example.justplants.orderInfo</servlet-class>
   </servlet>
-    <servlet-mapping>
+  <servlet>
+  <servlet-name>checkOut</servlet-name>
+    <servlet-class>com.example.justplants.checkOut</servlet-class>
+  </servlet>
+  <servlet>
+  <servlet-name>keepOrder</servlet-name>
+    <servlet-class>com.example.justplants.keepOrder</servlet-class>
+  </servlet>
+  <servlet-mapping>
     <servlet-name>viewCart</servlet-name>
     <url-pattern>/viewCart/*</url-pattern>
   </servlet-mapping>
@@ -35,5 +43,13 @@
   <servlet-mapping>
     <servlet-name>orderInfo</servlet-name>
     <url-pattern>/orderInfo</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>checkOut</servlet-name>
+    <url-pattern>/checkOut</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>keepOrder</servlet-name>
+    <url-pattern>/keep</url-pattern>
   </servlet-mapping>
 </web-app>

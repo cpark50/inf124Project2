@@ -2,17 +2,13 @@ package com.example.justplants;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 
 @WebServlet(name = "orderInfo", value = "/orderInfo")
@@ -27,29 +23,26 @@ public class orderInfo extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try{ //slow. connection. 
             Class.forName("com.mysql.jdbc.Driver"); //load library
-            Connection con = DriverManager.getConnection("jdbc:mysql:// localhost:3306/" + credentials.schemaName,"root", credentials.passwd);
-            Statement stmt = con.createStatement();
-            String sql = "SELECT * FROM "+tables.order;
-            ResultSet rs = stmt.executeQuery(sql);
-            Integer total = 0;
             PrintWriter writer = resp.getWriter();
+            HttpSession session = req.getSession(true);
+            int[] currentCart = (int[]) session.getAttribute("cart");
+            int userId = (int)session.getAttribute("visitorId");
+            Integer total = 0;
             writer.println("<html> <head>");
             writer.println("<script type=\"text/javaScript\" src=\"js/checkValidation.js\"></script>");
             writer.println("<link rel=\"stylesheet\" href=\"styles/orderInfo.css\"> <title>Just Plants</title> </head>");
             writer.println("<body> <div class=\"title\"><h1><a href=\"\">JustPlants</a></h1></div>");
-            writer.println("<div class=\"nav_bar\"><ul><li><a class=\"active\" href=\"./\">Home</a></li><li><a href=\"aboutcompany.html\">About Company</a></li><li><a href=\"orderInfo\">Make Order</a></li></ul></div>");
+            writer.println("<div class=\"nav_bar\"><ul><li><a class=\"active\" href=\"./\">Home</a></li><li><a href=\"aboutcompany.html\">About Company</a></li></ul></div>");
             writer.println("<fieldset><legend>Cart</legend>");
-            while(rs.next()){
-                String name = rs.getString("p_name");
-                String image = rs.getString("imagename");
-                Integer price = rs.getInt("p_price");
-                total += price;
-                //boolean: getBlob
-                //send to product page with id number for the database
-                writer.println("<div><a href=\"./product\"><img src=\"images/" + image +"\" alt=\"" + name + "\">");
-                writer.println("<p class=\"pname\">" + name + "</p>");
-                writer.println("<p class=\"price\"> $" + price + ".00</p></a></div>");             
-            }
+            writer.println("<div class=\"greeting\">Hello User " + userId +"!</div>");
+            if(currentCart!=null){
+                for(int i=1; i<11; i++){
+                    if(currentCart[i]>0){
+                        writer.println("<div class=\"product\">" + plants.PLANT_NAMES[i] + ": " + currentCart[i] + "</div>");
+                        total += plants.PLANT_PRICES[i]*currentCart[i];
+                    }
+                }
+            }     
             writer.println("<p class=\"totalPrice\">Total: "+total +"</p>");
             writer.println("</fieldset>");
 
@@ -59,9 +52,9 @@ public class orderInfo extends HttpServlet {
             writer.println("First Name:<br><input type=\"text\" name=\"fname\"><br>");
             writer.println("Last Name:<br><input type=\"text\" name=\"lname\"><br>");
             writer.println("Phone Number:<br><input type=\"text\" name=\"phone\" placeholder=\"(xxx)-xxx-xxxx\"><br>");
-            writer.println(":<br><input type=\"text\" name=\"address1\"><br><input type=\"text\" name=\"address2\"><br>");
+            writer.println("Address:<br><input type=\"text\" name=\"address1\"><br><input type=\"text\" name=\"address2\"><br>");
             writer.println("City:<br><input type=\"text\" name=\"city\"><br>");
-            writer.println(":<br><input type=\"text\" name=\"state\"><br>");
+            writer.println("State:<br><input type=\"text\" name=\"state\"><br>");
             writer.println("Zip Code:<br><input type=\"text\" name=\"zip\"><br><br>");
             writer.println("Shipping Speed:");
             writer.println("<select name=\"shipping\">");
@@ -90,7 +83,7 @@ public class orderInfo extends HttpServlet {
         }
         catch(ClassNotFoundException e){
             e.printStackTrace();
-        } catch (SQLException e) {
+        } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
