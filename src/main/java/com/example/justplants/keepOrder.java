@@ -37,23 +37,44 @@ public class keepOrder extends HttpServlet {
             Connection con = DriverManager.getConnection("jdbc:mysql:// localhost:3306/" + credentials.schemaName, "root", credentials.passwd);
             Statement stmt = con.createStatement();
             String sql = "";
-
+            String fLine = "INSERT INTO order_info(u_id, shipping";
+            String sLine = " VALUES("+userId+",\""+req.getParameter("shipping")+"\"";
+            String u_name="";
+            String u_address="";
+            String u_phone="";
+            String u_card="";
+            u_name = req.getParameter("fname")+" "+req.getParameter("lname");
+            u_address = req.getParameter("address1")+" "+req.getParameter("address2")+" "+
+                        req.getParameter("city")+" "+req.getParameter("state")+" "+req.getParameter("zip")+" "+
+                        req.getParameter("country");
+            u_phone = req.getParameter("phone");
+            u_card = req.getParameter("payment")+" "+req.getParameter("card")+" "+
+                     req.getParameter("fullname")+" "+req.getParameter("expDate");
+            
+            sql = "INSERT INTO user_info(u_id, u_name, u_address, u_phone, u_card)"+ 
+                    " VALUES("+userId+",\""+u_name+"\",\""+u_address+"\",\""+u_phone+"\",\""+u_card+"\")";
+            stmt.executeUpdate(sql);
             out.println("<html> <head>");
             out.println("<link rel=\"stylesheet\" href=\"styles/orderInfo.css\"> <title>Order Confirmed</title> </head>");
             out.println("<body> <div class=\"title\"><h1><a href=\"./\">JustPlants</a></h1></div>");
             out.println("<div class=\"nav_bar\"><ul><li><a class=\"active\" href=\"./\">Home</a></li><li><a href=\"aboutcompany.html\">About Company</a></li></ul></div>");
-            out.println("<body> <div class=\"orderconfirmed\"><h1>Order Confirmed</h1></div>");
+            out.println("<div class=\"orderconfirmed\"><h1>Order Confirmed</h1></div>");
+            // out.println("<p>"+sql+"</p>");
             if(currentCart!=null){
                 out.println("<div class=orderInfo>Hello User "+userId+", Your order is: </div>");
                 for(int i=1; i<11; i++){
                     if(currentCart[i]>0){
-                        sql = "INSERT INTO order_info(u_id,p_"+i+")" +
-                                    "VALUES("+userId+","+currentCart[i]+")";
-                        stmt.executeUpdate(sql);
+                        fLine += ", p_"+i;
+                        sLine += ","+currentCart[i];
                         out.println("<div class=orderInfo>"+currentCart[i]+" "+plants.PLANT_NAMES[i]+"</div>");
                         total += currentCart[i]*plants.PLANT_PRICES[i];
                     }
                 }
+                fLine+=")";
+                sLine+=")";
+                sql = fLine+sLine;
+                // out.println("<p>"+sql+"</p>");
+                stmt.executeUpdate(sql);
                 out.println("<div class=orderInfo>Total is $"+total+".00 </div>");
                 Arrays.fill(currentCart, 0);
                 session.setAttribute("cart", currentCart);
