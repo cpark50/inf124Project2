@@ -61,7 +61,7 @@ public class viewShoppingCart extends HttpServlet {
             
             //The cart is empty
             if (null == session.getAttribute("cart")){
-                writer.println("<p> <i>YOUR CART IS EMTPTY</i></p>");
+                writer.println("<p id=\"emptycart\"><i>YOUR CART IS EMTPTY</i></p>");
             }
             else{
                 writer.println("<div id=\"wrapper\">");
