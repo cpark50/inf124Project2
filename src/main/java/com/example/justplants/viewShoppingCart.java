@@ -64,7 +64,9 @@ public class viewShoppingCart extends HttpServlet {
                 writer.println("<p> <i>YOUR CART IS EMTPTY</i></p>");
             }
             else{
-                writer.println("<div class=\"cart-items\">");
+                writer.println("<div id=\"wrapper\">");
+                writer.println("<div id=\"cart-items\" class=\"cart-items\">");
+                writer.println("<form action=\"./updateCart\" method=\"get\">");
                 while(rs.next()){
                     int[] userCart = (int[]) session.getAttribute("cart");
                     String name = rs.getString("p_name");
@@ -82,14 +84,16 @@ public class viewShoppingCart extends HttpServlet {
                         //writer.println("<p class=\"total price\"> Price: $"+ price*quantity+".00 </p></a>");
                         writer.println("</div>");
                         count++;
+                        if (count == 6) { count = 1;}
                         totalPrice += price*quantity;
                     }
                     //send to product page with p_id number for the database
                 }
-                writer.println("</div>");
-                writer.println("<span> Total Price: $"+ totalPrice + ".00 </span>");
-                writer.println("<form action=\"\"><input type=\"submit\" value=\"Update Cart\"/></form>");
-                writer.println("");
+                writer.println("</div>"); //div cart-items
+                writer.println("<div id= \"final-order\" class='edit-or-order'><span> Total Price: $"+ totalPrice + ".00 </span>");
+                writer.println("<input type=\"submit\" value=\"Update Cart\"/></form>");
+                writer.println("<button onclick=\"location.href='./orderInfo'\" type=\"button\">Order Now</button></div>");
+                writer.println("</div>"); //div wrapper
             } 
                 
             
