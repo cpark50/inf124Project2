@@ -23,9 +23,8 @@
   
 body {
     margin: 0%;
-    padding: 0;
+    padding: 10px;
     background-color: rgb(233, 227, 227);
-
 }
 
 a {
@@ -71,10 +70,6 @@ li a {
 }
 
 
-/* td{
-    text-align: center;
-} */
-
 img {
     width:  100px;
     height: 150px;
@@ -89,15 +84,15 @@ img {
     width: 100%;
     float: left;
     text-align: center;
-    padding: 30px;
+    padding: 40px;
 }
 
 @media screen and (min-width: 600px) {
-.col-1 {width: 40%;}
-.col-2 {width: 40%;}
+[class*="col-"] {width: 40%;}
+/* .col-2 {width: 40%;}
 .col-3 {width: 40%;}
 .col-4 {width: 40%;}
-.col-5 {width: 40%;}
+.col-5 {width: 40%;} */
 
 }
 
@@ -109,15 +104,24 @@ img {
 .col-5 {width: 20%;}
 }
 
+.edit-or-order {
+    width: 100%;
+    position: relative;
+    bottom: 0px;
+    padding-bottom: 1em;
+    text-align: center;
+}
+
 #wrapper{
     overflow:auto;
 }
 
-#cart-items{
+/* #cart-items{
     float:left;
-}
+} */
 
 #final-order{
     float:right;
-    padding-right: 10%;
+    padding-right: 2em;
+    padding-top: 3em;
 }​
