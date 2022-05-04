@@ -30,7 +30,7 @@
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>updateCart</servlet-name>
-    <url-pattern>/updateCart/*</url-pattern>
+    <url-pattern>/updateCart</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>product</servlet-name>

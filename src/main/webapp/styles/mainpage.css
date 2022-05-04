@@ -17,7 +17,9 @@ footer{
     left: 0;
     bottom: 0; 
 }
-
+.edit-or-order {
+    margin-top: auto; /* push to bottom */
+}
 .pname {
     color: rgb(140, 0, 0);
     font-family: Arial, Helvetica, sans-serif;
