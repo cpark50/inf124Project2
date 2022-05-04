@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 
-@WebServlet(name = "updateCart", urlPatterns = "/updateCart")
+@WebServlet(name = "updateCart")
 public class UpdateCart extends HttpServlet {
 
     @Override
@@ -43,7 +43,7 @@ public class UpdateCart extends HttpServlet {
             session.setAttribute("cart", currentCart);
             
             session.setAttribute("totalPlants", totalPlants);
-            resp.sendRedirect("http://localhost:8080/ecommerce/viewCart/");
+            resp.sendRedirect("http://localhost:8080/ecommerce/viewCart");
 
 
             Class.forName("com.mysql.jdbc.Driver"); //load library
