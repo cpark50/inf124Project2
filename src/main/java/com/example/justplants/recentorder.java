@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.mysql.cj.xdevapi.Result;
+
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -54,32 +56,39 @@ public class recentorder extends HttpServlet{
         "</script>"
     };
 
-    
+    Connection conn;
 
     @Override
     public void init() throws ServletException {
         super.init();
-        
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mysql:// localhost:3306/" + credentials.schemaName, "root", credentials.passwd);
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try{
+            Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+
+            HttpSession session = req.getSession(true);
+            //String uid = "1";
+            String uid = (String) session.getAttribute("visitorId");
+
             Map<String, String[]> params = req.getParameterMap();
             if(params.get("action") != null){
                 String p1 = params.get("product")[0];
-                String product_name = p1.substring(0, p1.indexOf('_'));
+                String pindex = p1.substring(0, p1.indexOf('_'));
                 int rate = Integer.valueOf(params.get("rate")[0]);
-                System.out.println(product_name+ ": " +rate);
+                String storeRatingsql = "REPLACE INTO rating VALUES (" + "'" + uid + "_" + pindex + "'" + "," + uid + "," + pindex + "," + rate + ")";
+                stmt.executeUpdate(storeRatingsql);
+                //System.out.println(pindex+ ": " +rate);
                 return;
             }
 
-            Class.forName("com.mysql.jdbc.Driver"); //load library
-            Connection con = DriverManager.getConnection("jdbc:mysql:// localhost:3306/" + credentials.schemaName, "root", credentials.passwd);
-            Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
-
-            HttpSession session = req.getSession(true);
-            String uid = (String) session.getAttribute("visitorId");
             String sql = "SELECT * FROM order_info WHERE u_id = " + uid;;
             //String sql = "SELECT * FROM order_info WHERE u_id = 1";
             ResultSet rs = stmt.executeQuery(sql);
@@ -88,10 +97,7 @@ public class recentorder extends HttpServlet{
             String pid = "";
             ArrayList<Integer> recentOrders = new ArrayList<Integer>();
 
-            // obtains 5 products id
-            // if it has record
             rs.afterLast();
-             
             while(rs.previous()){   
                 if (recentOrders.size() == 5)
                     break;
@@ -111,7 +117,6 @@ public class recentorder extends HttpServlet{
             ResultSet prod_result = stmt.executeQuery(selectProductsSql);
 
             PrintWriter writer = resp.getWriter();
-
             writer.println("<html><body>");
 
             for (String s : style){
@@ -139,21 +144,6 @@ public class recentorder extends HttpServlet{
                     //Star stars = new Star("1" + id, 5, 0, 0, 4, 16, false);
                     Star stars = new Star(uid + id, 5, 0, 0, 4, 16, false);
                     stars.appendStarHTML(resp);
-
-                    // style
-                    // writer.println("<link href=\"https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css\" rel=\"stylesheet\"/>");
-                    // writer.println("<style> .rating-list li {float: right;color: #ddd padding: 10px 5px;}");
-                    // writer.println(".rating-list li:hover, .rating-list li:hover~li { color: #ffd700;}");
-                    // writer.println(".rating-list {display: inline-block;list-style: none;}</style>");
-                    // rating stars
-                    // writer.println("<ul class=\"list-inline rating-list\">");
-                    // writer.println("<li><i class=\"fa fa-star\" title=\"5\"></i></li>");
-                    // writer.println("<li><i class=\"fa fa-star\" title=\"4\"></i></li>");
-                    // writer.println("<li><i class=\"fa fa-star\" title=\"3\"></i></li>");
-                    // writer.println("<li><i class=\"fa fa-star\" title=\"2\"></i></li>");
-                    // writer.println("<li><i class=\"fa fa-star\" title=\"1\"></i></li>");
-                    // writer.println("</ul>");
-
                     writer.println("</div>");
                     count++; 
                 }
@@ -161,14 +151,10 @@ public class recentorder extends HttpServlet{
             writer.println("</body> </html>");
 
             prod_result.close();
-            rs.close();
-        }
-        catch(ClassNotFoundException e){
+            rs.close();   
+        }catch(SQLException e)
+        {
             e.printStackTrace();
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        
+        }   
     }
 }

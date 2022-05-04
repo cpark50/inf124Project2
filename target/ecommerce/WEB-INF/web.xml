@@ -17,12 +17,20 @@
     <servlet-class>com.example.justplants.viewShoppingCart</servlet-class>
   </servlet>
   <servlet>
+    <servlet-name>updateCart</servlet-name>
+    <servlet-class>com.example.justplants.UpdateCart</servlet-class>
+  </servlet>
+  <servlet>
     <servlet-name>orderInfo</servlet-name>
     <servlet-class>com.example.justplants.orderInfo</servlet-class>
   </servlet>
-    <servlet-mapping>
+  <servlet-mapping>
     <servlet-name>viewCart</servlet-name>
     <url-pattern>/viewCart/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>updateCart</servlet-name>
+    <url-pattern>/updateCart/*</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>product</servlet-name>
