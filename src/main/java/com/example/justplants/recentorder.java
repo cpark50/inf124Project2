@@ -72,13 +72,13 @@ public class recentorder extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try{
-            System.out.println("recentorder -> get");
+            //System.out.println("recentorder -> get");
             Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            System.out.println("recentorder -> connected");
+            //System.out.println("recentorder -> connected");
             HttpSession session = req.getSession(true);
             //String uid = "1";
             String uid = String.valueOf(session.getAttribute("visitorId"));
-            System.out.println(uid);
+            //System.out.println(uid);
 
             Map<String, String[]> params = req.getParameterMap();
             if(params.get("action") != null){
@@ -128,7 +128,9 @@ public class recentorder extends HttpServlet{
                 writer.println(s);
             }
 
-            writer.println("<h3 style=\"margin-bottom: 10%;\">My Recent Orders</h3>");
+            writer.println("<br>");
+            writer.println("<br>");
+            writer.println("<h3>My Recent Orders</h3>");
             int count = 1;
             while(prod_result.next()){
                 if (count == 6)
