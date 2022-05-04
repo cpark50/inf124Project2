@@ -50,3 +50,7 @@ img {
     font-family: sans-serif, Arial, Helvetica;
     line-height: 1.6;
 }
+.orderconfirmed {
+    padding: 20px;
+    text-align: center;
+}

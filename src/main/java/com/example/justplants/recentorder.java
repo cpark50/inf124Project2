@@ -128,7 +128,7 @@ public class recentorder extends HttpServlet{
                 writer.println(s);
             }
 
-            writer.println("<h3>My Recent Orders</h3>");
+            writer.println("<div class=\"myrecent\"><h3>My Recent Orders</h3></div>");
             int count = 1;
             while(prod_result.next()){
                 if (count == 6)
