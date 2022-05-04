@@ -36,14 +36,25 @@ public class keepOrder extends HttpServlet {
             Connection con = DriverManager.getConnection("jdbc:mysql:// localhost:3306/" + credentials.schemaName, "root", credentials.passwd);
             Statement stmt = con.createStatement();
             String sql = "";
-            // if(currentCart!=null){
-            //     for(int i=1; i<11; i++){
-            //         if(currentCart[i]>0){
-            //             sql = "INSERT INTO order_info VALUES()";
-            //         }
-            //     }
-            // }    
-            // stmt.executeUpdate(sql);
+
+            out.println("<html> <head>");
+            out.println("<link rel=\"stylesheet\" href=\"styles/orderInfo.css\"> <title>Order Confirmed</title> </head>");
+            out.println("<body> <div class=\"title\"><h1><a href=\"\">Order Confirmed</a></h1></div>");
+            out.println("<div class=\"nav_bar\"><ul><li><a class=\"active\" href=\"./\">Home</a></li><li><a href=\"aboutcompany.html\">About Company</a></li></ul></div>");
+            if(currentCart!=null){
+                out.println("<div class=orderInfo>Hello User "+userId+", Your order is: </div>");
+                for(int i=1; i<11; i++){
+                    if(currentCart[i]>0){
+                        sql = "INSERT INTO order_info(u_id,p_"+i+")" +
+                                    "VALUES("+userId+","+currentCart[i]+")";
+                        stmt.executeUpdate(sql);
+                        out.println("<div class=orderInfo>"+currentCart[i]+" "+plants.PLANT_NAMES[i]+"</div>");
+                        total += currentCart[i]*plants.PLANT_PRICES[i];
+                    }
+                }
+                out.println("<div class=orderInfo>Total is $"+total+".00 </div>");
+            }
+            out.println("</body></html>");    
         }
         catch(ClassNotFoundException e){
             e.printStackTrace();
