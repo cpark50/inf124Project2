@@ -55,6 +55,8 @@ public class keepOrder extends HttpServlet {
                 }
                 out.println("<div class=orderInfo>Total is $"+total+".00 </div>");
                 Arrays.fill(currentCart, 0);
+                session.setAttribute("cart", currentCart);
+                session.setAttribute("totalPlants", 0);
             }
             out.println("</body></html>");    
         }
