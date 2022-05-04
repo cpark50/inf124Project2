@@ -1,4 +1,4 @@
-footer {
+/* footer {
     text-align: center;
     border: 1px solid white;
     color: black;
@@ -9,8 +9,17 @@ footer {
     font-size: 17px;
     background-color: rgb(155, 189, 107);
     margin-top: auto;
+} */
+footer{
+    height: 100px; 
+    width:100%;
+    position: absolute;
+    left: 0;
+    bottom: 0; 
 }
-
+.edit-or-order {
+    margin-top: auto; /* push to bottom */
+}
 .pname {
     color: rgb(140, 0, 0);
     font-family: Arial, Helvetica, sans-serif;

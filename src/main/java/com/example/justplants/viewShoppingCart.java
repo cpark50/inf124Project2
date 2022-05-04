@@ -9,9 +9,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.concurrent.ThreadLocalRandom;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -45,6 +43,7 @@ public class viewShoppingCart extends HttpServlet {
 
             int count = 1;
             int totalPlants = 0;
+            int totalPrice = 0;
 
             if(null == session.getAttribute("totalPlants")) {
                 session.setAttribute("totalPlants", totalPlants);
@@ -54,7 +53,7 @@ public class viewShoppingCart extends HttpServlet {
             }
 
             PrintWriter writer = resp.getWriter();
-            writer.println("<html> <head> <link rel=\"stylesheet\" href=\"styles/mainpage.css\"> <title>Just Plants</title> </head>");
+            writer.println("<html> <head> <link rel=\"stylesheet\" href=\"styles/viewcart.css\"> <title>Just Plants</title> </head>");
             writer.println("<body> <div class=\"title\"><h1><a href=\"./\">JustPlants</a></h1></div>");
             writer.println("<div class=\"nav_bar\"><ul><li><a class=\"active\" href=\"./\">Home</a></li><li><a href=\"aboutcompany.html\">About Company</a></li><li><a href=\"viewCart\">View Shopping Cart("+ totalPlants+ ")</a></li></ul></div>");
             
@@ -63,6 +62,9 @@ public class viewShoppingCart extends HttpServlet {
                 writer.println("<p> <i>YOUR CART IS EMTPTY</i></p>");
             }
             else{
+                writer.println("<div id=\"wrapper\">");
+                writer.println("<div id=\"cart-items\" class=\"cart-items\">");
+                writer.println("<form action=\"./updateCart\" method=\"get\">");
                 while(rs.next()){
                     int[] userCart = (int[]) session.getAttribute("cart");
                     String name = rs.getString("p_name");
@@ -73,23 +75,26 @@ public class viewShoppingCart extends HttpServlet {
     
                     if (userCart[p_id] > 0){
                         quantity = userCart[p_id];
+                        
                         writer.println("<div class=\"col-" + count + "\" id=\""+ p_id +"\"><a href=\"./product/"+p_id+"\"><img src=\"images/" + image +"\" alt=\"" + name + "\">");
                         writer.println("<p class=\"pname\">" + name + "</p>");
                         writer.println("<p class=\"price\"> $" + price + ".00</p></a>");
-                        writer.println("<input type=\"number\" name=\"quantity\" step=\"1\" min=\"1\" max=\"\" value=\""+ quantity +"\" class=\"input-text qty text\" size=\"2\" pattern=\"\" inputmode=\"\">");
-                        writer.println("<p class=\"total price\"> Price: $"+ price*quantity+".00 </p></a>");
-                        writer.println("</div>");
+                        writer.println("<input type=\"number\" name=\"plant"+p_id+"\" step=\"1\" min=\"1\" max=\"\" value=\""+ quantity +"\" title=\"Qty\" class=\"input-text qty text\" size=\"2\" pattern=\"\" inputmode=\"\">");
+                        writer.println("</div>"); //div columns
                         count++;
+                        if (count == 6){ count = 1;}
+                        totalPrice += price*quantity;
                     }
                     //send to product page with p_id number for the database
-                    //use getParameter to update quantities for each plants.   
                 }
+                writer.println("</div>"); //div cart-items
+                writer.println("<div id= \"final-order\" class='edit-or-order'><span> Total Price: $"+ totalPrice + ".00 </span>");
+                writer.println("<input type=\"submit\" value=\"Update Cart\"/></form>");
+                writer.println("<button onclick=\"location.href='./orderInfo'\" type=\"button\">Order Now</button></div>");
+                writer.println("</div>"); //div wrapper
+
             } 
             stmt.close();
-            writer.println("<button onclick=\"location.href='orderInfo'\" type=\"button\">Order Now</button>");
-
-
-            
         }
         catch(ClassNotFoundException e){
             e.printStackTrace();

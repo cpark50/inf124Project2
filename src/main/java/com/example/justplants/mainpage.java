@@ -79,6 +79,7 @@ public class mainpage extends HttpServlet {
             requestDispatcher.include(req, resp);
             
             writer.println("</body> </html>");
+            
         }
         catch(ClassNotFoundException e){
             e.printStackTrace();

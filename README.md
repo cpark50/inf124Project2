@@ -1,6 +1,6 @@
 # INF124 Project Assignment #2
 
-## Project Name
+## JustPlants
 JustPlants is an e-commerce website that sells indoor plants to customers and encourage people to connect with the environment.  
 
 ## Contributors
@@ -21,8 +21,10 @@ The About Company page has the mission statement, and the about us, which is a b
 **Detailed Product page**\
 The product page is also built with servlet and SQL. By clicking on the products from the main page, it will lead you to each of the detailed product pages. The user can always navigate back to the main page or the about company page via the top navigation bar.The detailed product page has a bigger image on the left side. On the right side, there are the type of the products, the product name, description, size, instruction for caring, price and quantity modifying input and Add to cart button. By clicking on the Add to cart button, it will add the desired quantity of that product to customer's cart by storing all the information distinct from each HTTP sessions.\
 
-~~**Order Form page**\
-The order form is for customers to order products by filling in the information. The form has three sections. The first section is a cart, which allows customers to choose a product from the drop down box and enter the quantity. The second section is shipping information, asking customers to fill in the shipping info including names, phone number, address and shipping method. The third section is payment information where customers need to enter their credit card. Customers can reset the info by clicking on the reset button, or send the info by clicking on the send button to make an email~~.\
+**View Shopping Cart page**\
+
+**Order Form page**\
+The order form is for customers to order products by filling in the information. The form has three sections. The first section is a cart, which allows customers to choose a product from the drop down box and enter the quantity. The second section is shipping information, asking customers to fill in the shipping info including names, phone number, address and shipping method. The third section is payment information where customers need to enter their credit card. Customers can reset the info by clicking on the reset button, or send the info by clicking on the send button to make an email.\
 
 ## Requirements
 #1 is shown on the About Company page\
