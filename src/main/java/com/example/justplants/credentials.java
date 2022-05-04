@@ -1,7 +1,7 @@
 package com.example.justplants;
 
 public class credentials{
-    static String schemaName="pa124";
-    static String passwd="cindy1234";
+    static String schemaName="JustPlantsProducts";
+    static String passwd="aliceqiu367";
 
 }
