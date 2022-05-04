@@ -57,7 +57,7 @@ public class mainpage extends HttpServlet {
             PrintWriter writer = resp.getWriter();
             writer.println("<html> <head> <link rel=\"stylesheet\" href=\"styles/mainpage.css\"> <title>Just Plants</title> </head>");
             writer.println("<body> <div class=\"title\"><h1><a href=\"\">JustPlants</a></h1></div>");
-            writer.println("<div class=\"nav_bar\"><ul><li><a class=\"active\" href=\"\">Home</a></li><li><a href=\"aboutcompany.html\">About Company</a></li><li><a href=\"viewCart\">View Shopping Cart("+ totalPlants+ ")</a></li></ul></div>");
+            writer.println("<div class=\"nav_bar\"><ul><li><a class=\"active\" href=\"\">Shop</a></li><li><a href=\"aboutcompany.html\">About Company</a></li><li><a href=\"viewCart\">View Shopping Cart("+ totalPlants+ ")</a></li></ul></div>");
             while(rs.next()){
                 if (count == 6)
                     count = 1;

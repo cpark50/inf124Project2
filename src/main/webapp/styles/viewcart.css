@@ -1,0 +1,131 @@
+.pname {
+    color: rgb(140, 0, 0);
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bolder;
+    font-size: 16px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.size{
+    font-family: 'Courier New', Courier, monospace;
+    color: rgb(119, 116, 116);
+    margin-bottom: 5px;
+}
+
+.price{
+    font-family:Arial, Helvetica, sans-serif;
+    color: black;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+#emptycart {
+    padding-top: 20px;
+    text-align: center;
+}
+  
+body {
+    margin: 0%;
+    padding: 10px;
+    background-color: rgb(233, 227, 227);
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+a:hover img {
+    transform: scale(1.25);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    transition: all .4s ease;
+}
+
+.title{
+    padding: 15px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+ul {
+    list-style-type: none;
+    margin:0;
+    padding: 0;
+    overflow: hidden;
+    background-color: rgb(233, 227, 227);
+    border: 1px solid white;
+}
+
+li {
+    float: left;
+    border-right:1px solid white;
+}
+
+li a {
+    display: block;
+    color: gray;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 300;
+    color: gray;
+    line-height: 24px;
+}
+
+
+img {
+    width:  100px;
+    height: 150px;
+    object-fit: cover;
+}
+
+*{
+    box-sizing: border-box;
+}
+
+[class*="col-"] {
+    width: 100%;
+    float: left;
+    text-align: center;
+    padding: 40px;
+}
+
+@media screen and (min-width: 600px) {
+[class*="col-"] {width: 40%;}
+/* .col-2 {width: 40%;}
+.col-3 {width: 40%;}
+.col-4 {width: 40%;}
+.col-5 {width: 40%;} */
+
+}
+
+@media screen and (min-width: 850px) {
+.col-1 {width: 20%;}
+.col-2 {width: 20%;}
+.col-3 {width: 20%;}
+.col-4 {width: 20%;}
+.col-5 {width: 20%;}
+}
+
+.edit-or-order {
+    width: 100%;
+    position: relative;
+    bottom: 0px;
+    padding-bottom: 1em;
+    text-align: center;
+}
+
+#wrapper{
+    overflow:auto;
+}
+
+/* #cart-items{
+    float:left;
+} */
+
+#final-order{
+    float:right;
+    padding-right: 2em;
+    padding-top: 3em;
+}​
