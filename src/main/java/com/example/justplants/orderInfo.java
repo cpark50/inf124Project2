@@ -36,8 +36,8 @@ public class orderInfo extends HttpServlet {
             writer.println("<html> <head>");
             writer.println("<script type=\"text/javaScript\" src=\"js/checkValidation.js\"></script>");
             writer.println("<link rel=\"stylesheet\" href=\"styles/orderInfo.css\"> <title>Just Plants</title> </head>");
-            writer.println("<body> <div class=\"title\"><h1><a href=\"\">JustPlants</a></h1></div>");
-            writer.println("<div class=\"nav_bar\"><ul><li><a class=\"active\" href=\"./\">Home</a></li><li><a href=\"aboutcompany.html\">About Company</a></li><li><a href=\"orderInfo\">Make Order</a></li></ul></div>");
+            writer.println("<body> <div class=\"title\"><h1><a href=\"./\">JustPlants</a></h1></div>");
+            writer.println("<div class=\"nav_bar\"><ul><li><a class=\"active\" href=\"./\">Home</a></li><li><a href=\"aboutcompany.html\">About Company</a></li><li><a href=\"viewCart\">View Shopping Cart</a></li></ul></div>");
             writer.println("<fieldset><legend>Cart</legend>");
             while(rs.next()){
                 String name = rs.getString("p_name");
