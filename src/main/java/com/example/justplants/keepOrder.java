@@ -40,9 +40,9 @@ public class keepOrder extends HttpServlet {
 
             out.println("<html> <head>");
             out.println("<link rel=\"stylesheet\" href=\"styles/orderInfo.css\"> <title>Order Confirmed</title> </head>");
-            out.println("<body> <div class=\"title\"><h1><a href=\"./\">Order Confirmed</a></h1></div>");
+            out.println("<body> <div class=\"title\"><h1><a href=\"./\">JustPlants</a></h1></div>");
             out.println("<div class=\"nav_bar\"><ul><li><a class=\"active\" href=\"./\">Home</a></li><li><a href=\"aboutcompany.html\">About Company</a></li></ul></div>");
-            out.println("<body> <div class=\"title\"><h1><a href=\"./\">Order Confirmed</a></h1></div>");
+            out.println("<body> <div class=\"orderconfirmed\"><h1>Order Confirmed</h1></div>");
             if(currentCart!=null){
                 out.println("<div class=orderInfo>Hello User "+userId+", Your order is: </div>");
                 for(int i=1; i<11; i++){
