@@ -45,6 +45,7 @@ public class orderInfo extends HttpServlet {
             }     
             writer.println("<p class=\"totalPrice\">Total: $"+total +".00</p>");
             writer.println("</fieldset>");
+            
 
             writer.println("<form action=\"checkOut\" name=\"orderForm\" method=\"post\" onsubmit=\"return (CheckValidation(this))\">");
             writer.println("<center><fieldset><legend>Shipping Information</legend>");
